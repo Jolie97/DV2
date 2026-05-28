@@ -1,0 +1,132 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Shark Attacks by Victim Activity",
+  "width": "container",
+  "height": 340,
+  "config": {
+    "background": "transparent",
+    "font": "DM Sans",
+    "title": {
+      "color": "#e8f4f8",
+      "fontSize": 14,
+      "fontWeight": 600,
+      "font": "Playfair Display"
+    },
+    "axis": {
+      "labelColor": "rgba(232,244,248,0.5)",
+      "tickColor": "transparent",
+      "gridColor": "rgba(33,168,184,0.13)",
+      "domainColor": "rgba(33,168,184,0.13)",
+      "titleColor": "rgba(232,244,248,0.5)",
+      "titleFontSize": 11
+    },
+    "legend": {
+      "labelColor": "rgba(232,244,248,0.5)",
+      "titleColor": "rgba(232,244,248,0.5)",
+      "labelFontSize": 11
+    },
+    "view": {
+      "stroke": "transparent"
+    }
+  },
+  "data": {
+    "url": "data/shark_attacks.csv"
+  },
+  "transform": [
+    {
+      "filter": "datum.activity != '' && datum.activity != 'Other'"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "count",
+          "as": "attacks"
+        }
+      ],
+      "groupby": [
+        "activity"
+      ]
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "rule",
+        "color": "rgba(33,168,184,0.25)",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "y": {
+          "field": "activity",
+          "type": "nominal",
+          "sort": "-x",
+          "title": null
+        },
+        "x": {
+          "field": "attacks",
+          "type": "quantitative"
+        },
+        "x2": {
+          "value": 0
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "color": "#21a8b8",
+        "size": 150
+      },
+      "encoding": {
+        "y": {
+          "field": "activity",
+          "type": "nominal",
+          "sort": "-x",
+          "title": null
+        },
+        "x": {
+          "field": "attacks",
+          "type": "quantitative",
+          "title": "Number of Attacks"
+        },
+        "tooltip": [
+          {
+            "field": "activity",
+            "type": "nominal",
+            "title": "Activity"
+          },
+          {
+            "field": "attacks",
+            "type": "quantitative",
+            "title": "Attacks"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "color": "#e8f4f8",
+        "fontSize": 10,
+        "fontWeight": "600",
+        "dx": 16
+      },
+      "encoding": {
+        "y": {
+          "field": "activity",
+          "type": "nominal",
+          "sort": "-x"
+        },
+        "x": {
+          "field": "attacks",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "attacks",
+          "type": "quantitative"
+        }
+      }
+    }
+  ]
+}

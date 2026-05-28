@@ -1,0 +1,140 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Fatal vs Non-Fatal Attacks by Body Part",
+  "width": "container",
+  "height": 300,
+  "config": {
+    "background": "transparent",
+    "font": "DM Sans",
+    "title": {
+      "color": "#e8f4f8",
+      "fontSize": 14,
+      "fontWeight": 600,
+      "font": "Playfair Display"
+    },
+    "axis": {
+      "labelColor": "rgba(232,244,248,0.5)",
+      "tickColor": "transparent",
+      "gridColor": "rgba(33,168,184,0.13)",
+      "domainColor": "rgba(33,168,184,0.13)",
+      "titleColor": "rgba(232,244,248,0.5)",
+      "titleFontSize": 11
+    },
+    "legend": {
+      "labelColor": "rgba(232,244,248,0.5)",
+      "titleColor": "rgba(232,244,248,0.5)",
+      "labelFontSize": 11
+    },
+    "view": {
+      "stroke": "transparent"
+    }
+  },
+  "data": {
+    "url": "data/shark_attacks.csv"
+  },
+  "transform": [
+    {
+      "filter": "datum.injury == 'Fatal' || datum.injury == 'Non-Fatal'"
+    },
+    {
+      "filter": "datum.body_part != '' && datum.body_part != 'Other'"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "count",
+          "as": "attacks"
+        }
+      ],
+      "groupby": [
+        "body_part",
+        "injury"
+      ]
+    }
+  ],
+  "layer": [
+    {
+      "transform": [
+        {
+          "pivot": "injury",
+          "value": "attacks",
+          "groupby": [
+            "body_part"
+          ]
+        }
+      ],
+      "mark": {
+        "type": "rule",
+        "color": "rgba(33,168,184,0.2)",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "y": {
+          "field": "body_part",
+          "type": "nominal",
+          "sort": "-x",
+          "title": null
+        },
+        "x": {
+          "field": "Non-Fatal",
+          "type": "quantitative"
+        },
+        "x2": {
+          "field": "Fatal"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 120
+      },
+      "encoding": {
+        "y": {
+          "field": "body_part",
+          "type": "nominal",
+          "sort": "-x",
+          "title": null
+        },
+        "x": {
+          "field": "attacks",
+          "type": "quantitative",
+          "title": "Number of Attacks"
+        },
+        "color": {
+          "field": "injury",
+          "type": "nominal",
+          "title": "Outcome",
+          "scale": {
+            "domain": [
+              "Non-Fatal",
+              "Fatal"
+            ],
+            "range": [
+              "#21a8b8",
+              "#e05c4a"
+            ]
+          }
+        },
+        "tooltip": [
+          {
+            "field": "body_part",
+            "type": "nominal",
+            "title": "Body Part"
+          },
+          {
+            "field": "injury",
+            "type": "nominal",
+            "title": "Outcome"
+          },
+          {
+            "field": "attacks",
+            "type": "quantitative",
+            "title": "Attacks"
+          }
+        ]
+      }
+    }
+  ]
+}

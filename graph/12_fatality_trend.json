@@ -1,0 +1,146 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Shark Attack Fatality Rate by Decade (1850\u20132025)",
+  "width": "container",
+  "height": 320,
+  "config": {
+    "background": "transparent",
+    "font": "DM Sans",
+    "title": {
+      "color": "#e8f4f8",
+      "fontSize": 14,
+      "fontWeight": 600,
+      "font": "Playfair Display"
+    },
+    "axis": {
+      "labelColor": "rgba(232,244,248,0.5)",
+      "tickColor": "transparent",
+      "gridColor": "rgba(33,168,184,0.13)",
+      "domainColor": "rgba(33,168,184,0.13)",
+      "titleColor": "rgba(232,244,248,0.5)",
+      "titleFontSize": 11
+    },
+    "legend": {
+      "labelColor": "rgba(232,244,248,0.5)",
+      "titleColor": "rgba(232,244,248,0.5)",
+      "labelFontSize": 11
+    },
+    "view": {
+      "stroke": "transparent"
+    }
+  },
+  "data": {
+    "url": "data/shark_attacks.csv"
+  },
+  "transform": [
+    {
+      "filter": "datum.year >= 1850"
+    },
+    {
+      "filter": "datum.injury == 'Fatal' || datum.injury == 'Non-Fatal'"
+    },
+    {
+      "calculate": "floor(datum.year / 10) * 10",
+      "as": "decade_num"
+    },
+    {
+      "calculate": "datum.injury == 'Fatal' ? 1 : 0",
+      "as": "is_fatal"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "count",
+          "as": "total"
+        },
+        {
+          "op": "sum",
+          "field": "is_fatal",
+          "as": "fatal_count"
+        }
+      ],
+      "groupby": [
+        "decade_num"
+      ]
+    },
+    {
+      "calculate": "datum.fatal_count / datum.total * 100",
+      "as": "fatality_rate"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "area",
+        "color": "#e05c4a",
+        "opacity": 0.1
+      },
+      "encoding": {
+        "x": {
+          "field": "decade_num",
+          "type": "quantitative",
+          "title": "Decade",
+          "axis": {
+            "format": "d"
+          }
+        },
+        "y": {
+          "field": "fatality_rate",
+          "type": "quantitative",
+          "title": "Fatality Rate (%)"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "line",
+        "color": "#e05c4a",
+        "strokeWidth": 2.5,
+        "point": {
+          "color": "#e05c4a",
+          "size": 55,
+          "filled": true
+        }
+      },
+      "encoding": {
+        "x": {
+          "field": "decade_num",
+          "type": "quantitative",
+          "title": "Decade",
+          "axis": {
+            "format": "d"
+          }
+        },
+        "y": {
+          "field": "fatality_rate",
+          "type": "quantitative",
+          "title": "Fatality Rate (%)"
+        },
+        "tooltip": [
+          {
+            "field": "decade_num",
+            "type": "quantitative",
+            "title": "Decade",
+            "format": "d"
+          },
+          {
+            "field": "total",
+            "type": "quantitative",
+            "title": "Total Attacks"
+          },
+          {
+            "field": "fatal_count",
+            "type": "quantitative",
+            "title": "Fatal"
+          },
+          {
+            "field": "fatality_rate",
+            "type": "quantitative",
+            "title": "Fatality Rate (%)",
+            "format": ".1f"
+          }
+        ]
+      }
+    }
+  ]
+}

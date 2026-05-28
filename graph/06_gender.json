@@ -1,0 +1,89 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Victim Gender Breakdown",
+  "width": 280,
+  "height": 280,
+  "config": {
+    "background": "transparent",
+    "font": "DM Sans",
+    "title": {
+      "color": "#e8f4f8",
+      "fontSize": 14,
+      "fontWeight": 600,
+      "font": "Playfair Display"
+    },
+    "axis": {
+      "labelColor": "rgba(232,244,248,0.5)",
+      "tickColor": "transparent",
+      "gridColor": "rgba(33,168,184,0.13)",
+      "domainColor": "rgba(33,168,184,0.13)",
+      "titleColor": "rgba(232,244,248,0.5)",
+      "titleFontSize": 11
+    },
+    "legend": {
+      "labelColor": "rgba(232,244,248,0.5)",
+      "titleColor": "rgba(232,244,248,0.5)",
+      "labelFontSize": 11
+    },
+    "view": {
+      "stroke": "transparent"
+    }
+  },
+  "data": {
+    "url": "data/shark_attacks.csv"
+  },
+  "transform": [
+    {
+      "filter": "datum.gender == 'Male' || datum.gender == 'Female'"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "count",
+          "as": "count"
+        }
+      ],
+      "groupby": [
+        "gender"
+      ]
+    }
+  ],
+  "mark": {
+    "type": "arc",
+    "innerRadius": 65,
+    "outerRadius": 115
+  },
+  "encoding": {
+    "theta": {
+      "field": "count",
+      "type": "quantitative"
+    },
+    "color": {
+      "field": "gender",
+      "type": "nominal",
+      "title": "Gender",
+      "scale": {
+        "domain": [
+          "Male",
+          "Female"
+        ],
+        "range": [
+          "#21a8b8",
+          "#e67e22"
+        ]
+      }
+    },
+    "tooltip": [
+      {
+        "field": "gender",
+        "type": "nominal",
+        "title": "Gender"
+      },
+      {
+        "field": "count",
+        "type": "quantitative",
+        "title": "Count"
+      }
+    ]
+  }
+}

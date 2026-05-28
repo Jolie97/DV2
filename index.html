@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beneath the Surface — Shark Attacks in Australia</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Vega-Lite -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+  <!-- Project stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div id="progress-bar" role="progressbar" aria-hidden="true"></div>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <!-- ======================== HERO ======================== -->
+  <header class="hero">
+    <span class="hero-shark" aria-hidden="true">🦈</span>
+    <h1>Beneath the <span>Surface</span></h1>
+    <p class="subtitle">
+      Understanding shark attacks in Australia — who, where, when, and why
+      across 230 years of recorded incidents
+    </p>
+    <p class="byline">FIT2179 · Data Visualisation 2 · 2026</p>
+    <div class="hero-waves" aria-hidden="true">
+      <svg viewBox="0 0 1440 180" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,90 C360,160 720,20 1080,90 C1260,126 1380,70 1440,90 L1440,180 L0,180 Z"
+              fill="rgba(10,31,61,0.85)"/>
+        <path d="M0,130 C300,90 600,165 900,130 C1100,105 1300,148 1440,120 L1440,180 L0,180 Z"
+              fill="#050e1f"/>
+      </svg>
+    </div>
+  </header>
+
+  <div class="container" id="main-content">
+
+    <!-- ======================== INTRO + KPIs ======================== -->
+    <section aria-label="Introduction" class="fade-in">
+      <p>
+        Australia records one of the highest rates of shark incidents in the world. Since 1791,
+        <span class="highlight">1,283 attacks</span> have been documented — a record spanning
+        over two centuries of ocean recreation, fishing, and coastal life. Yet the story is
+        more nuanced than headlines suggest: most attacks are non-fatal, many are provoked,
+        and the odds of being bitten remain extraordinarily low.
+      </p>
+      <p>
+        This visualisation explores the full dataset from the
+        <span class="highlight">Australian Shark Incident Database (ASID)</span>,
+        tracing patterns across geography, species, victim behaviour, time, and changing trends.
+      </p>
+
+      <div class="kpi-row">
+        <div class="kpi-card">
+          <div class="kpi-icon">🦈</div>
+          <div class="kpi-num">1,283</div>
+          <div class="kpi-label">Total recorded shark attacks (1791–2025)</div>
+        </div>
+        <div class="kpi-card danger-card">
+          <div class="kpi-icon">💀</div>
+          <div class="kpi-num">259</div>
+          <div class="kpi-label">Fatal attacks recorded</div>
+        </div>
+        <div class="kpi-card warning-card">
+          <div class="kpi-icon">🏥</div>
+          <div class="kpi-num">775</div>
+          <div class="kpi-label">Non-fatal injury incidents</div>
+        </div>
+        <div class="kpi-card safe-card">
+          <div class="kpi-icon">🌊</div>
+          <div class="kpi-num">67%</div>
+          <div class="kpi-label">Of all attacks were unprovoked</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon">📍</div>
+          <div class="kpi-num">1:3.7M</div>
+          <div class="kpi-label">Estimated odds per ocean visit</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================== CHAPTER 01 ======================== -->
+    <div class="chapter-break fade-in">
+      <span class="ch-num" aria-hidden="true">01</span>
+      <div class="ch-body">
+        <p class="ch-eyebrow">🗺 Part One</p>
+        <p class="ch-title">Where Do Attacks Happen?</p>
+        <p class="ch-desc">Mapping 230 years of shark incidents across Australia's vast coastline — by state and by exact location.</p>
+      </div>
+    </div>
+
+    <!-- ======================== PART 1 — GEOGRAPHY ======================== -->
+    <section aria-label="Part One — Geography" class="fade-in">
+
+      <span class="section-label">Choropleth Map</span>
+      <h2>Attacks by State</h2>
+      <p>
+        New South Wales and Queensland — Australia's most populous coastal states — record
+        the highest total number of shark attacks. Together they account for over 65% of
+        all incidents in the database.
+      </p>
+      <div class="vis-wrapper"><div id="vis-map"></div></div>
+      <p class="caption">Total shark attacks by state 1791–2025. Source: ASID · JSON: vega_specs/01_choropleth.json</p>
+
+      <div class="story-sep" aria-hidden="true"><span class="story-sep-icon">📍</span></div>
+
+      <span class="section-label">Dot Map</span>
+      <h2>Every Attack, Plotted</h2>
+      <p>
+        Every recorded attack with a known location is shown below as a point on the map.
+        <span class="danger">Red dots</span> mark fatal attacks;
+        <span class="highlight">blue dots</span> mark non-fatal incidents.
+        Use the decade filter to explore how attack locations have shifted over time.
+      </p>
+      <div class="vis-wrapper">
+        <div class="hint">🔴 Red = fatal &nbsp;·&nbsp; 🔵 Blue = non-fatal &nbsp;·&nbsp; Use the <strong>decade dropdown</strong> to filter by time period</div>
+        <div id="vis-dotmap"></div>
+      </div>
+      <p class="caption">Point map of individual attacks with known coordinates. Filter by decade to see geographic shifts over time. JSON: vega_specs/02_dotmap.json</p>
+
+      <div class="story-sep" aria-hidden="true"><span class="story-sep-icon">🌊</span></div>
+
+      <span class="section-label">Fatal vs Non-Fatal by State</span>
+      <h2>Which States Are Most Deadly?</h2>
+      <p>
+        Western Australia stands out not just for its attack numbers but for its
+        <span class="danger">fatality proportion</span> — historically the highest of any
+        Australian state. NSW has the most attacks overall but a proportionally lower share
+        of fatal outcomes, partly due to beach netting programs introduced in the 1930s.
+      </p>
+      <div class="vis-wrapper">
+        <div class="hint">💡 Hover any bar for exact counts</div>
+        <div id="vis-state-bar"></div>
+      </div>
+      <p class="caption">Grouped bars: fatal vs non-fatal attacks per state. JSON: vega_specs/03_state_bar.json</p>
+
+    </section>
+
+    <!-- ======================== CHAPTER 02 ======================== -->
+    <div class="chapter-break fade-in">
+      <span class="ch-num" aria-hidden="true">02</span>
+      <div class="ch-body">
+        <p class="ch-eyebrow">🦈 Part Two</p>
+        <p class="ch-title">Which Sharks Attack?</p>
+        <p class="ch-desc">Not all sharks are equally dangerous. Exploring species, provocation, and victim gender.</p>
+      </div>
+    </div>
+
+    <!-- ======================== PART 2 — SPECIES ======================== -->
+    <section aria-label="Part Two — Species and Victims" class="fade-in">
+
+      <span class="section-label">Species</span>
+      <h2>Which Sharks Are Most Dangerous?</h2>
+      <p>
+        <span class="highlight">White sharks</span> are responsible for the most attacks overall.
+        Wobbegongs cause many incidents but are rarely fatal, while tiger sharks and bull sharks
+        carry a disproportionately high fatality rate relative to their attack frequency.
+      </p>
+      <div class="vis-wrapper">
+        <div class="hint">💡 Hover any bar for exact counts</div>
+        <div id="vis-species"></div>
+      </div>
+      <p class="caption">Stacked bar: fatal vs non-fatal attacks by shark species. JSON: vega_specs/04_species.json</p>
+
+      <div class="story-sep" aria-hidden="true"><span class="story-sep-icon">⚡</span></div>
+
+      <div class="vis-pair">
+        <div class="vis-wrapper">
+          <span class="section-label">Provocation</span>
+          <p style="font-size:0.9rem;margin-bottom:10px;color:rgba(232,244,248,0.55);">Were attacks provoked or unprovoked?</p>
+          <div id="vis-provoked"></div>
+          <p class="caption" style="margin-top:8px;">JSON: vega_specs/05_provoked.json</p>
+        </div>
+        <div class="vis-wrapper">
+          <span class="section-label">Victim Gender</span>
+          <p style="font-size:0.9rem;margin-bottom:10px;color:rgba(232,244,248,0.55);">Gender of shark attack victims</p>
+          <div id="vis-gender"></div>
+          <p class="caption" style="margin-top:8px;">JSON: vega_specs/06_gender.json</p>
+        </div>
+      </div>
+      <p class="caption">Left: 67% of attacks were unprovoked. Right: ~88% of all victims are male, reflecting higher male participation in high-risk ocean activities.</p>
+
+      <blockquote class="pullquote">
+        <strong>88% of all victims are male</strong> — not because sharks prefer men, but because
+        men dominate high-risk ocean activities like surfing, spearfishing, and diving.
+      </blockquote>
+
+    </section>
+
+    <!-- ======================== CHAPTER 03 ======================== -->
+    <div class="chapter-break fade-in">
+      <span class="ch-num" aria-hidden="true">03</span>
+      <div class="ch-body">
+        <p class="ch-eyebrow">🏄 Part Three</p>
+        <p class="ch-title">What Were Victims Doing?</p>
+        <p class="ch-desc">Activity at time of attack and body part data reveals how behaviour shapes risk in the water.</p>
+      </div>
+    </div>
+
+    <!-- ======================== PART 3 — ACTIVITY ======================== -->
+    <section aria-label="Part Three — Activity and Injury" class="fade-in">
+
+      <span class="section-label">Victim Activity</span>
+      <h2>What Were Victims Doing When Attacked?</h2>
+      <p>
+        Swimming is the most common activity at the time of attack, followed by boarding
+        (surfing and bodyboarding). Spearfishing carries disproportionate risk — the presence
+        of fish blood and erratic movement significantly elevates shark attention.
+      </p>
+      <div class="vis-wrapper"><div id="vis-activity"></div></div>
+      <p class="caption">Lollipop chart: attacks by victim activity, sorted by frequency. JSON: vega_specs/07_activity.json</p>
+
+      <div class="story-sep" aria-hidden="true"><span class="story-sep-icon">🦵</span></div>
+
+      <span class="section-label">Body Part</span>
+      <h2>Which Body Parts Are Most at Risk?</h2>
+      <p>
+        Legs and feet are by far the most commonly bitten body parts. Torso injuries,
+        while fewer in number, carry a far higher fatality rate — bites to the torso are
+        more likely to sever major blood vessels.
+      </p>
+      <div class="vis-wrapper">
+        <div class="hint">🔴 Red = fatal &nbsp;·&nbsp; 🔵 Blue = non-fatal &nbsp;·&nbsp; Line spans the gap between outcomes</div>
+        <div id="vis-body"></div>
+      </div>
+      <p class="caption">Dumbbell dot plot: fatal vs non-fatal attacks by body part. JSON: vega_specs/08_body_part.json</p>
+
+    </section>
+
+    <!-- ======================== CHAPTER 04 ======================== -->
+    <div class="chapter-break fade-in">
+      <span class="ch-num" aria-hidden="true">04</span>
+      <div class="ch-body">
+        <p class="ch-eyebrow">📅 Part Four</p>
+        <p class="ch-title">When Do Attacks Occur?</p>
+        <p class="ch-desc">Seasonal rhythms, time of day, and the long arc of history all shape when sharks bite.</p>
+      </div>
+    </div>
+
+    <!-- ======================== PART 4 — TEMPORAL ======================== -->
+    <section aria-label="Part Four — Temporal Patterns" class="fade-in">
+
+      <span class="section-label">Seasonality &amp; Time of Day</span>
+      <h2>Which Months and Times Are Most Dangerous?</h2>
+      <p>
+        Shark attacks peak in the Australian summer months of
+        <span class="highlight">December through February</span>.
+        Late afternoon (3–6pm) sees the highest attack frequency — when the most people
+        are in the water and shark visibility may be reduced by low sunlight angles.
+      </p>
+      <div class="vis-pair">
+        <div class="vis-wrapper">
+          <div class="hint">🌀 Each arc = one month — longer arc = more attacks</div>
+          <div id="vis-month"></div>
+          <p class="caption" style="margin-top:8px;">JSON: vega_specs/09_month_radial.json</p>
+        </div>
+        <div class="vis-wrapper">
+          <div class="hint">⏰ Only attacks with a recorded time are shown (n≈539)</div>
+          <div id="vis-timeofday"></div>
+          <p class="caption" style="margin-top:8px;">JSON: vega_specs/10_timeofday.json</p>
+        </div>
+      </div>
+
+      <div class="story-sep" aria-hidden="true"><span class="story-sep-icon">📈</span></div>
+
+      <span class="section-label">Historical Trend</span>
+      <h2>How Have Attacks Changed Over Time?</h2>
+      <p>
+        Shark attack numbers have risen over the past century — but so has Australia's
+        population and ocean recreation. The dual-axis chart shows that the
+        <span class="highlight">per-capita rate has remained broadly stable</span>
+        even as absolute numbers rise.
+      </p>
+      <div class="vis-wrapper">
+        <div class="hint">📊 Bars = attacks per year &nbsp;·&nbsp; Dashed line = Australian population (millions)</div>
+        <div id="vis-timeline"></div>
+      </div>
+      <p class="caption">Dual-axis: annual attacks (left axis) vs population in millions (right axis), 1900–2025. JSON: vega_specs/11_timeline.json</p>
+
+      <blockquote class="pullquote">
+        More attacks in recent decades — but <strong>per capita risk is roughly unchanged</strong>.
+        There are simply more Australians in the water than ever before.
+      </blockquote>
+
+    </section>
+
+    <!-- ======================== CHAPTER 05 ======================== -->
+    <div class="chapter-break fade-in">
+      <span class="ch-num" aria-hidden="true">05</span>
+      <div class="ch-body">
+        <p class="ch-eyebrow">📊 Part Five</p>
+        <p class="ch-title">Severity &amp; Long-Term Trends</p>
+        <p class="ch-desc">How has survival improved? Where have hotspots shifted? What does the full severity picture look like?</p>
+      </div>
+    </div>
+
+    <!-- ======================== PART 5 — SEVERITY ======================== -->
+    <section aria-label="Part Five — Severity and Long-Term Patterns" class="fade-in">
+
+      <span class="section-label">Fatality Rate Over Time</span>
+      <h2>Has Survival Improved?</h2>
+      <p>
+        Despite rising absolute attack numbers, the
+        <span class="highlight">fatality rate has declined significantly</span> since the
+        early 1900s. Improvements in emergency response, surf lifesaving, and beach
+        surveillance have dramatically improved survival odds for attack victims.
+      </p>
+      <div class="vis-wrapper"><div id="vis-fatality-trend"></div></div>
+      <p class="caption">Fatality rate per decade: fatal attacks as % of total. Clear downward trend since the 1930s. JSON: vega_specs/12_fatality_trend.json</p>
+
+      <div class="story-sep" aria-hidden="true"><span class="story-sep-icon">🗺</span></div>
+
+      <span class="section-label">State × Decade Heatmap</span>
+      <h2>How Have Hotspots Shifted?</h2>
+      <p>
+        The heatmap reveals how attack hotspots have changed across decades.
+        NSW has consistently dominated, but Western Australia's surge in the
+        <span class="highlight">2000s and 2010s</span> prompted significant public debate
+        about shark mitigation policy.
+      </p>
+      <div class="vis-wrapper">
+        <div class="hint">🔥 Darker = more attacks in that state/decade &nbsp;·&nbsp; Hover for exact count</div>
+        <div id="vis-heatmap"></div>
+      </div>
+      <p class="caption">Heatmap: attacks by state and decade from 1900. JSON: vega_specs/13_heatmap.json</p>
+
+      <div class="story-sep" aria-hidden="true"><span class="story-sep-icon">🌿</span></div>
+
+      <span class="section-label">Overall Severity</span>
+      <h2>What Is the Full Severity Picture?</h2>
+      <p>
+        The chart below shows the complete breakdown of attack outcomes — from fatal
+        bites to uninjured encounters. The majority of shark interactions result in
+        non-fatal injuries, with a significant portion leaving victims completely uninjured.
+      </p>
+      <div class="vis-wrapper"><div id="vis-treemap"></div></div>
+      <p class="caption">Normalised stacked bar: proportion of attacks by outcome category. JSON: vega_specs/14_treemap.json</p>
+
+    </section>
+
+    <!-- ======================== CONCLUSION ======================== -->
+    <section class="conclusion-section fade-in" aria-label="Conclusion">
+      <div class="conclusion-inner">
+        <div class="conclusion-icon" aria-hidden="true">🦈</div>
+        <h2 class="conclusion-heading">Beneath the Surface — The Full Picture</h2>
+        <p>
+          Australia's shark attack story is one of risk in perspective. Yes, incidents have
+          been recorded for over 230 years across every coastal state. But the data consistently
+          shows that risk is shaped by <span class="highlight">behaviour, location, and season</span>
+          more than by random chance.
+        </p>
+        <p>
+          White sharks, tiger sharks, and bull sharks account for the majority of serious incidents.
+          Summer months and coastal NSW and Queensland carry the highest exposure. Yet the
+          <span class="highlight">fatality rate has more than halved</span> since the mid-20th
+          century — a testament to improved emergency response and beach safety infrastructure.
+        </p>
+        <p>
+          With 1,283 attacks over 234 years — fewer than six per year on average across an
+          entire continent with one of the world's longest coastlines — the data confirms:
+          the water is far safer than it feels.
+        </p>
+        <div class="c-stats">
+          <div class="c-stat"><div class="c-stat-num">1,283</div><div class="c-stat-label">total attacks</div></div>
+          <div class="c-stat"><div class="c-stat-num">234 yrs</div><div class="c-stat-label">of records</div></div>
+          <div class="c-stat"><div class="c-stat-num">20%</div><div class="c-stat-label">fatality rate</div></div>
+          <div class="c-stat"><div class="c-stat-num">↓50%</div><div class="c-stat-label">fatality rate since 1950s</div></div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /.container -->
+
+  <!-- ======================== FOOTER ======================== -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4 class="footer-heading">About This Work</h4>
+        <p>FIT2179 Data Visualisation 2 &nbsp;·&nbsp; Semester 1 2026</p>
+        <p>Monash University</p>
+        <p>Last updated: <strong>May 2026</strong></p>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-heading">Data Sources</h4>
+        <ul class="footer-sources">
+          <li>
+            <a href="https://github.com/cjabradshaw/AustralianSharkIncidentDatabase" target="_blank" rel="noopener">
+              Australian Shark Incident Database (ASID)
+            </a> — Taronga Conservation Society Australia &amp; Flinders University, 1791–2025.
+          </li>
+          <li>
+            Australian Bureau of Statistics — Historical population data for dual-axis timeline chart (data/shark_population.csv).
+          </li>
+          <li>
+            Australia state boundaries TopoJSON: <a href="https://github.com/alwaysblazing/Australia-State-TopoJson-MapChart" target="_blank" rel="noopener">alwaysblazing/Australia-State-TopoJson-MapChart</a>
+          </li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-heading">Acknowledgements</h4>
+        <p>Generative AI (Claude) assisted with CSS layout, Vega-Lite spec structure, and copy-editing. All data cleaning, chart design decisions, and analysis are the author's own work.</p>
+        <p>Built with <a href="https://vega.github.io/vega-lite/" target="_blank" rel="noopener">Vega-Lite v5</a>. Fonts from Google Fonts.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      🦈 &nbsp; Beneath the Surface · FIT2179 Data Visualisation 2 · Monash University
+    </div>
+  </footer>
+
+  <!-- Project JS — loads all Vega-Lite specs and embeds charts -->
+  <script src="js/main.js"></script>
+
+</body>
+</html>

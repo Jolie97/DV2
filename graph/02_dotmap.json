@@ -1,0 +1,166 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Individual Shark Attacks by Location",
+  "width": "container",
+  "height": 500,
+  "config": {
+    "background": "transparent",
+    "font": "DM Sans",
+    "title": {
+      "color": "#e8f4f8",
+      "fontSize": 14,
+      "fontWeight": 600,
+      "font": "Playfair Display"
+    },
+    "axis": {
+      "labelColor": "rgba(232,244,248,0.5)",
+      "tickColor": "transparent",
+      "gridColor": "rgba(33,168,184,0.13)",
+      "domainColor": "rgba(33,168,184,0.13)",
+      "titleColor": "rgba(232,244,248,0.5)",
+      "titleFontSize": 11
+    },
+    "legend": {
+      "labelColor": "rgba(232,244,248,0.5)",
+      "titleColor": "rgba(232,244,248,0.5)",
+      "labelFontSize": 11
+    },
+    "view": {
+      "stroke": "transparent"
+    }
+  },
+  "params": [
+    {
+      "name": "dec_sel",
+      "bind": {
+        "input": "select",
+        "name": "Filter by Decade: ",
+        "options": [
+          "All",
+          "1790s",
+          "1800s",
+          "1810s",
+          "1820s",
+          "1830s",
+          "1840s",
+          "1850s",
+          "1860s",
+          "1870s",
+          "1880s",
+          "1890s",
+          "1900s",
+          "1910s",
+          "1920s",
+          "1930s",
+          "1940s",
+          "1950s",
+          "1960s",
+          "1970s",
+          "1980s",
+          "1990s",
+          "2000s",
+          "2010s",
+          "2020s"
+        ]
+      },
+      "value": "All"
+    }
+  ],
+  "layer": [
+    {
+      "data": {
+        "url": "au-states-topo.json",
+        "format": {
+          "type": "topojson",
+          "feature": "austates"
+        }
+      },
+      "projection": {
+        "type": "mercator"
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "rgba(10,31,61,0.6)",
+        "stroke": "rgba(33,168,184,0.3)",
+        "strokeWidth": 1
+      }
+    },
+    {
+      "data": {
+        "url": "data/shark_attacks.csv"
+      },
+      "transform": [
+        {
+          "filter": "datum.latitude != '' && datum.longitude != ''"
+        },
+        {
+          "filter": "datum.injury == 'Fatal' || datum.injury == 'Non-Fatal'"
+        },
+        {
+          "filter": "dec_sel == 'All' || datum.decade == dec_sel"
+        }
+      ],
+      "projection": {
+        "type": "mercator"
+      },
+      "mark": {
+        "type": "circle",
+        "opacity": 0.65,
+        "size": 28
+      },
+      "encoding": {
+        "longitude": {
+          "field": "longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "latitude",
+          "type": "quantitative"
+        },
+        "color": {
+          "field": "injury",
+          "type": "nominal",
+          "title": "Outcome",
+          "scale": {
+            "domain": [
+              "Non-Fatal",
+              "Fatal"
+            ],
+            "range": [
+              "#21a8b8",
+              "#e05c4a"
+            ]
+          }
+        },
+        "tooltip": [
+          {
+            "field": "year",
+            "type": "quantitative",
+            "title": "Year",
+            "format": "d"
+          },
+          {
+            "field": "state",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "injury",
+            "type": "nominal",
+            "title": "Outcome"
+          },
+          {
+            "field": "species",
+            "type": "nominal",
+            "title": "Species"
+          },
+          {
+            "field": "activity",
+            "type": "nominal",
+            "title": "Activity"
+          }
+        ]
+      }
+    }
+  ]
+}

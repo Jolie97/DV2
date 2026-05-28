@@ -1,0 +1,87 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Total Shark Attacks by State (1791\u20132025)",
+  "width": "container",
+  "height": 460,
+  "config": {
+    "background": "transparent",
+    "font": "DM Sans",
+    "title": {
+      "color": "#e8f4f8",
+      "fontSize": 14,
+      "fontWeight": 600,
+      "font": "Playfair Display"
+    },
+    "axis": {
+      "labelColor": "rgba(232,244,248,0.5)",
+      "tickColor": "transparent",
+      "gridColor": "rgba(33,168,184,0.13)",
+      "domainColor": "rgba(33,168,184,0.13)",
+      "titleColor": "rgba(232,244,248,0.5)",
+      "titleFontSize": 11
+    },
+    "legend": {
+      "labelColor": "rgba(232,244,248,0.5)",
+      "titleColor": "rgba(232,244,248,0.5)",
+      "labelFontSize": 11
+    },
+    "view": {
+      "stroke": "transparent"
+    }
+  },
+  "data": {
+    "url": "au-states-topo.json",
+    "format": {
+      "type": "topojson",
+      "feature": "austates"
+    }
+  },
+  "transform": [
+    {
+      "lookup": "id",
+      "from": {
+        "data": {
+          "url": "data/shark_by_state.csv"
+        },
+        "key": "id",
+        "fields": [
+          "state",
+          "attacks"
+        ]
+      }
+    }
+  ],
+  "projection": {
+    "type": "mercator"
+  },
+  "mark": {
+    "type": "geoshape",
+    "stroke": "rgba(33,168,184,0.35)",
+    "strokeWidth": 1.5
+  },
+  "encoding": {
+    "color": {
+      "field": "attacks",
+      "type": "quantitative",
+      "title": "Total Attacks",
+      "scale": {
+        "scheme": "tealblues"
+      },
+      "legend": {
+        "orient": "bottom-right"
+      }
+    },
+    "tooltip": [
+      {
+        "field": "state",
+        "type": "nominal",
+        "title": "State"
+      },
+      {
+        "field": "attacks",
+        "type": "quantitative",
+        "title": "Total Attacks"
+      }
+    ]
+  }
+}

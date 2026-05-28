@@ -1,0 +1,138 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Shark Attacks vs Australian Population Growth (1900\u20132025)",
+  "width": "container",
+  "height": 380,
+  "config": {
+    "background": "transparent",
+    "font": "DM Sans",
+    "title": {
+      "color": "#e8f4f8",
+      "fontSize": 14,
+      "fontWeight": 600,
+      "font": "Playfair Display"
+    },
+    "axis": {
+      "labelColor": "rgba(232,244,248,0.5)",
+      "tickColor": "transparent",
+      "gridColor": "rgba(33,168,184,0.13)",
+      "domainColor": "rgba(33,168,184,0.13)",
+      "titleColor": "rgba(232,244,248,0.5)",
+      "titleFontSize": 11
+    },
+    "legend": {
+      "labelColor": "rgba(232,244,248,0.5)",
+      "titleColor": "rgba(232,244,248,0.5)",
+      "labelFontSize": 11
+    },
+    "view": {
+      "stroke": "transparent"
+    }
+  },
+  "resolve": {
+    "scale": {
+      "y": "independent"
+    }
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "data/shark_attacks.csv"
+      },
+      "transform": [
+        {
+          "filter": "datum.year >= 1900"
+        },
+        {
+          "aggregate": [
+            {
+              "op": "count",
+              "as": "attacks"
+            }
+          ],
+          "groupby": [
+            "year"
+          ]
+        }
+      ],
+      "mark": {
+        "type": "bar",
+        "color": "#21a8b8",
+        "opacity": 0.75
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative",
+          "title": "Year",
+          "axis": {
+            "format": "d",
+            "grid": false
+          }
+        },
+        "y": {
+          "field": "attacks",
+          "type": "quantitative",
+          "title": "Attacks per Year",
+          "axis": {
+            "titleColor": "#21a8b8"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "year",
+            "type": "quantitative",
+            "title": "Year",
+            "format": "d"
+          },
+          {
+            "field": "attacks",
+            "type": "quantitative",
+            "title": "Attacks"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "data/shark_population.csv"
+      },
+      "mark": {
+        "type": "line",
+        "color": "#e67e22",
+        "strokeWidth": 2.5,
+        "strokeDash": [
+          5,
+          3
+        ]
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "population_millions",
+          "type": "quantitative",
+          "title": "Population (millions)",
+          "axis": {
+            "titleColor": "#e67e22"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "year",
+            "type": "quantitative",
+            "title": "Year",
+            "format": "d"
+          },
+          {
+            "field": "population_millions",
+            "type": "quantitative",
+            "title": "Population (M)"
+          }
+        ]
+      }
+    }
+  ]
+}

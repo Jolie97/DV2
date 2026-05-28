@@ -1,0 +1,96 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Shark Attacks by Time of Day",
+  "width": "container",
+  "height": 300,
+  "config": {
+    "background": "transparent",
+    "font": "DM Sans",
+    "title": {
+      "color": "#e8f4f8",
+      "fontSize": 14,
+      "fontWeight": 600,
+      "font": "Playfair Display"
+    },
+    "axis": {
+      "labelColor": "rgba(232,244,248,0.5)",
+      "tickColor": "transparent",
+      "gridColor": "rgba(33,168,184,0.13)",
+      "domainColor": "rgba(33,168,184,0.13)",
+      "titleColor": "rgba(232,244,248,0.5)",
+      "titleFontSize": 11
+    },
+    "legend": {
+      "labelColor": "rgba(232,244,248,0.5)",
+      "titleColor": "rgba(232,244,248,0.5)",
+      "labelFontSize": 11
+    },
+    "view": {
+      "stroke": "transparent"
+    }
+  },
+  "data": {
+    "url": "data/shark_attacks.csv"
+  },
+  "transform": [
+    {
+      "filter": "datum.time_block != ''"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "count",
+          "as": "attacks"
+        }
+      ],
+      "groupby": [
+        "time_block",
+        "time_order"
+      ]
+    }
+  ],
+  "mark": {
+    "type": "bar",
+    "cornerRadiusTopLeft": 4,
+    "cornerRadiusTopRight": 4
+  },
+  "encoding": {
+    "x": {
+      "field": "time_block",
+      "type": "ordinal",
+      "title": null,
+      "sort": {
+        "field": "time_order",
+        "order": "ascending"
+      },
+      "axis": {
+        "labelAngle": -20
+      }
+    },
+    "y": {
+      "field": "attacks",
+      "type": "quantitative",
+      "title": "Number of Attacks"
+    },
+    "color": {
+      "field": "attacks",
+      "type": "quantitative",
+      "scale": {
+        "scheme": "tealblues"
+      },
+      "legend": null
+    },
+    "tooltip": [
+      {
+        "field": "time_block",
+        "type": "nominal",
+        "title": "Time of Day"
+      },
+      {
+        "field": "attacks",
+        "type": "quantitative",
+        "title": "Attacks"
+      }
+    ]
+  }
+}

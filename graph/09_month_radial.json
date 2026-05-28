@@ -1,0 +1,101 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Shark Attacks by Month (Radial)",
+  "width": 300,
+  "height": 300,
+  "config": {
+    "background": "transparent",
+    "font": "DM Sans",
+    "title": {
+      "color": "#e8f4f8",
+      "fontSize": 14,
+      "fontWeight": 600,
+      "font": "Playfair Display"
+    },
+    "axis": {
+      "labelColor": "rgba(232,244,248,0.5)",
+      "tickColor": "transparent",
+      "gridColor": "rgba(33,168,184,0.13)",
+      "domainColor": "rgba(33,168,184,0.13)",
+      "titleColor": "rgba(232,244,248,0.5)",
+      "titleFontSize": 11
+    },
+    "legend": {
+      "labelColor": "rgba(232,244,248,0.5)",
+      "titleColor": "rgba(232,244,248,0.5)",
+      "labelFontSize": 11
+    },
+    "view": {
+      "stroke": "transparent"
+    }
+  },
+  "data": {
+    "url": "data/shark_attacks.csv"
+  },
+  "transform": [
+    {
+      "filter": "datum.month != ''"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "count",
+          "as": "attacks"
+        }
+      ],
+      "groupby": [
+        "month",
+        "month_name"
+      ]
+    },
+    {
+      "calculate": "datum.month - 1",
+      "as": "month_idx"
+    }
+  ],
+  "mark": {
+    "type": "arc",
+    "innerRadius": 28
+  },
+  "encoding": {
+    "theta": {
+      "field": "month_idx",
+      "type": "quantitative",
+      "scale": {
+        "domain": [
+          0,
+          12
+        ]
+      },
+      "bandPosition": 0
+    },
+    "radius": {
+      "field": "attacks",
+      "type": "quantitative",
+      "scale": {
+        "rangeMin": 28,
+        "rangeMax": 140
+      }
+    },
+    "color": {
+      "field": "attacks",
+      "type": "quantitative",
+      "scale": {
+        "scheme": "tealblues"
+      },
+      "legend": null
+    },
+    "tooltip": [
+      {
+        "field": "month_name",
+        "type": "nominal",
+        "title": "Month"
+      },
+      {
+        "field": "attacks",
+        "type": "quantitative",
+        "title": "Attacks"
+      }
+    ]
+  }
+}

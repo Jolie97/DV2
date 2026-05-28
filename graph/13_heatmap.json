@@ -1,0 +1,113 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Shark Attacks by State and Decade",
+  "width": "container",
+  "height": 280,
+  "config": {
+    "background": "transparent",
+    "font": "DM Sans",
+    "title": {
+      "color": "#e8f4f8",
+      "fontSize": 14,
+      "fontWeight": 600,
+      "font": "Playfair Display"
+    },
+    "axis": {
+      "labelColor": "rgba(232,244,248,0.5)",
+      "tickColor": "transparent",
+      "gridColor": "rgba(33,168,184,0.13)",
+      "domainColor": "rgba(33,168,184,0.13)",
+      "titleColor": "rgba(232,244,248,0.5)",
+      "titleFontSize": 11
+    },
+    "legend": {
+      "labelColor": "rgba(232,244,248,0.5)",
+      "titleColor": "rgba(232,244,248,0.5)",
+      "labelFontSize": 11
+    },
+    "view": {
+      "stroke": "transparent"
+    }
+  },
+  "data": {
+    "url": "data/shark_attacks.csv"
+  },
+  "transform": [
+    {
+      "filter": "datum.year >= 1900"
+    },
+    {
+      "filter": "datum.state != ''"
+    },
+    {
+      "calculate": "floor(datum.year / 10) * 10 + 's'",
+      "as": "dec"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "count",
+          "as": "attacks"
+        }
+      ],
+      "groupby": [
+        "state",
+        "dec"
+      ]
+    }
+  ],
+  "mark": {
+    "type": "rect",
+    "cornerRadius": 2
+  },
+  "encoding": {
+    "x": {
+      "field": "dec",
+      "type": "ordinal",
+      "title": "Decade",
+      "axis": {
+        "labelAngle": -30
+      }
+    },
+    "y": {
+      "field": "state",
+      "type": "nominal",
+      "title": null,
+      "sort": [
+        "New South Wales",
+        "Queensland",
+        "Western Australia",
+        "South Australia",
+        "Victoria",
+        "Tasmania",
+        "Northern Territory"
+      ]
+    },
+    "color": {
+      "field": "attacks",
+      "type": "quantitative",
+      "title": "Attacks",
+      "scale": {
+        "scheme": "tealblues",
+        "zero": true
+      }
+    },
+    "tooltip": [
+      {
+        "field": "state",
+        "type": "nominal",
+        "title": "State"
+      },
+      {
+        "field": "dec",
+        "type": "ordinal",
+        "title": "Decade"
+      },
+      {
+        "field": "attacks",
+        "type": "quantitative",
+        "title": "Attacks"
+      }
+    ]
+  }
+}
