@@ -15,7 +15,7 @@ async function loadAndEmbed(specFile, elementId) {
   try {
     const res  = await fetch(specFile);
     const spec = await res.json();
-    await Embed(`#${elementId}`, spec, EMBED_OPTS);
+    await vegaEmbed(`#${elementId}`, spec, EMBED_OPTS);
   } catch (err) {
     console.error(`Failed to load ${specFile}:`, err);
     const el = document.getElementById(elementId);
