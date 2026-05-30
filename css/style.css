@@ -238,6 +238,7 @@ p.caption {
   color: var(--deep);
   line-height: 1.1; margin-bottom: 6px;
 }
+
 .kpi-label {
   font-size: 0.76rem;
   color: rgba(220,240,255,0.88);
