@@ -1,8 +1,8 @@
-id,state,attacks
-0,New South Wales,460
-1,Victoria,73
-2,Queensland,377
-3,South Australia,84
-4,Western Australia,242
-5,Tasmania,28
-6,Northern Territory,19
+id,state,attacks,population,attacks_per_100k
+0,New South Wales,460,8166369,5.63
+1,Victoria,73,6503491,1.12
+2,Queensland,377,5185700,7.27
+3,South Australia,84,1802585,4.66
+4,Western Australia,242,2660089,9.1
+5,Tasmania,28,571542,4.9
+6,Northern Territory,19,250151,7.6
