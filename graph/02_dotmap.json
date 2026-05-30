@@ -158,6 +158,11 @@
             "field": "activity",
             "type": "nominal",
             "title": "Activity"
+          },
+          {
+            "field": "body_part",
+            "type": "nominal",
+            "title": "Body Part"
           }
         ]
       }
