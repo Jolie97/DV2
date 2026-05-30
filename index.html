@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <base href="/DV2/">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Beneath the Surface — Shark Attacks in Australia</title>
 
@@ -100,8 +99,6 @@
 
     <!-- ======================== PART 1 — GEOGRAPHY ======================== -->
     <section aria-label="Part One — Geography" class="fade-in">
-
-      <span class="section-label">Choropleth Map</span>
       <h2>Attacks by State</h2>
       <p>
         New South Wales and Queensland — Australia's most populous coastal states — record
@@ -112,8 +109,6 @@
       <p class="caption">Total shark attacks by state 1791–2025. Source: ASID · JSON: vega_specs/01_choropleth.json</p>
 
       <div class="story-sep" aria-hidden="true"><span class="story-sep-icon">📍</span></div>
-
-      <span class="section-label">Dot Map</span>
       <h2>Every Attack, Plotted</h2>
       <p>
         Every recorded attack with a known location is shown below as a point on the map.
@@ -128,8 +123,6 @@
       <p class="caption">Point map of individual attacks with known coordinates. Filter by decade to see geographic shifts over time. JSON: vega_specs/02_dotmap.json</p>
 
       <div class="story-sep" aria-hidden="true"><span class="story-sep-icon">🌊</span></div>
-
-      <span class="section-label">Fatal vs Non-Fatal by State</span>
       <h2>Which States Are Most Deadly?</h2>
       <p>
         Western Australia stands out not just for its attack numbers but for its
@@ -157,8 +150,6 @@
 
     <!-- ======================== PART 2 — SPECIES ======================== -->
     <section aria-label="Part Two — Species and Victims" class="fade-in">
-
-      <span class="section-label">Species</span>
       <h2>Which Sharks Are Most Dangerous?</h2>
       <p>
         <span class="highlight">White sharks</span> are responsible for the most attacks overall.
@@ -175,13 +166,11 @@
 
       <div class="vis-pair">
         <div class="vis-wrapper">
-          <span class="section-label">Provocation</span>
           <p style="font-size:0.9rem;margin-bottom:10px;color:rgba(232,244,248,0.55);">Were attacks provoked or unprovoked?</p>
           <div id="vis-provoked"></div>
           <p class="caption" style="margin-top:8px;">JSON: vega_specs/05_provoked.json</p>
         </div>
         <div class="vis-wrapper">
-          <span class="section-label">Victim Gender</span>
           <p style="font-size:0.9rem;margin-bottom:10px;color:rgba(232,244,248,0.55);">Gender of shark attack victims</p>
           <div id="vis-gender"></div>
           <p class="caption" style="margin-top:8px;">JSON: vega_specs/06_gender.json</p>
@@ -208,8 +197,6 @@
 
     <!-- ======================== PART 3 — ACTIVITY ======================== -->
     <section aria-label="Part Three — Activity and Injury" class="fade-in">
-
-      <span class="section-label">Victim Activity</span>
       <h2>What Were Victims Doing When Attacked?</h2>
       <p>
         Swimming is the most common activity at the time of attack, followed by boarding
@@ -220,8 +207,6 @@
       <p class="caption">Lollipop chart: attacks by victim activity, sorted by frequency. JSON: vega_specs/07_activity.json</p>
 
       <div class="story-sep" aria-hidden="true"><span class="story-sep-icon">🦵</span></div>
-
-      <span class="section-label">Body Part</span>
       <h2>Which Body Parts Are Most at Risk?</h2>
       <p>
         Legs and feet are by far the most commonly bitten body parts. Torso injuries,
@@ -248,8 +233,6 @@
 
     <!-- ======================== PART 4 — TEMPORAL ======================== -->
     <section aria-label="Part Four — Temporal Patterns" class="fade-in">
-
-      <span class="section-label">Seasonality &amp; Time of Day</span>
       <h2>Which Months and Times Are Most Dangerous?</h2>
       <p>
         Shark attacks peak in the Australian summer months of
@@ -271,8 +254,6 @@
       </div>
 
       <div class="story-sep" aria-hidden="true"><span class="story-sep-icon">📈</span></div>
-
-      <span class="section-label">Historical Trend</span>
       <h2>How Have Attacks Changed Over Time?</h2>
       <p>
         Shark attack numbers have risen over the past century — but so has Australia's
@@ -305,8 +286,6 @@
 
     <!-- ======================== PART 5 — SEVERITY ======================== -->
     <section aria-label="Part Five — Severity and Long-Term Patterns" class="fade-in">
-
-      <span class="section-label">Fatality Rate Over Time</span>
       <h2>Has Survival Improved?</h2>
       <p>
         Despite rising absolute attack numbers, the
@@ -318,8 +297,6 @@
       <p class="caption">Fatality rate per decade: fatal attacks as % of total. Clear downward trend since the 1930s. JSON: vega_specs/12_fatality_trend.json</p>
 
       <div class="story-sep" aria-hidden="true"><span class="story-sep-icon">🗺</span></div>
-
-      <span class="section-label">State × Decade Heatmap</span>
       <h2>How Have Hotspots Shifted?</h2>
       <p>
         The heatmap reveals how attack hotspots have changed across decades.
@@ -334,8 +311,6 @@
       <p class="caption">Heatmap: attacks by state and decade from 1900. JSON: vega_specs/13_heatmap.json</p>
 
       <div class="story-sep" aria-hidden="true"><span class="story-sep-icon">🌿</span></div>
-
-      <span class="section-label">Overall Severity</span>
       <h2>What Is the Full Severity Picture?</h2>
       <p>
         The chart below shows the complete breakdown of attack outcomes — from fatal
