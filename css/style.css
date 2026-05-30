@@ -1,6 +1,7 @@
-/* =================================================
+/* ============================================
    BENEATH THE SURFACE — Shark Attacks in Australia
-   ================================================= */
+   Stylesheet — Light theme (white + baby blue)
+   ============================================ */
 
 /* --- Variables --- */
 :root {
@@ -31,7 +32,7 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: 'DM Sans', 'Segoe UI', sans-serif;
-  background: #0a1f3d;
+  background: var(--bg);
   color: var(--text);
   line-height: 1.7;
   overflow-x: hidden;
@@ -171,7 +172,7 @@ h2.h2-spaced { margin-top: 52px; }
 
 p {
   font-size: 1.03rem;
-  color: #e8f4ff;
+  color: rgba(220,240,255,0.88);
   margin-bottom: 20px;
   max-width: 640px;
   line-height: 1.8;
@@ -234,12 +235,12 @@ p.caption {
   font-family: 'Playfair Display', serif;
   font-size: clamp(1.8rem, 3.5vw, 2.5rem);
   font-weight: 900;
-  color: rgba(255,255,255,0.88);
+  color: var(--deep);
   line-height: 1.1; margin-bottom: 6px;
 }
 .kpi-label {
   font-size: 0.76rem;
-  color: #e8f4ff;
+  color: rgba(220,240,255,0.88);
   line-height: 1.4; font-weight: 500;
 }
 
