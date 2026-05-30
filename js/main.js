@@ -1,6 +1,6 @@
 /* ============================================================
    BENEATH THE SURFACE — Shark Attacks in Australia
-   main.js — loads all graph specs from graph/ folder
+   main.js — loads all Vega-Lite specs from vega_specs/ folder
              and embeds them into the page
    ============================================================ */
 
@@ -8,7 +8,7 @@ const EMBED_OPTS = { actions: false, renderer: 'svg' };
 
 /**
  * Load a JSON spec file and embed it into a DOM element.
- * @param {string} specFile  - path to the JSON spec (e.g. 'grah/01_choropleth.json')
+ * @param {string} specFile  - path to the JSON spec (e.g. 'vega_specs/01_choropleth.json')
  * @param {string} elementId - id of the target div (e.g. 'vis-map')
  */
 async function loadAndEmbed(specFile, elementId) {
@@ -26,20 +26,20 @@ async function loadAndEmbed(specFile, elementId) {
 /* ---- Embed all 14 charts in order ---- */
 document.addEventListener('DOMContentLoaded', () => {
 
-  loadAndEmbed('graph/01_choropleth.json',    'vis-map');
-  loadAndEmbed('graph/02_dotmap.json',         'vis-dotmap');
-  loadAndEmbed('graph/03_state_bar.json',      'vis-state-bar');
-  loadAndEmbed('graph/04_species.json',        'vis-species');
-  loadAndEmbed('graph/05_provoked.json',       'vis-provoked');
-  loadAndEmbed('graph/06_gender.json',         'vis-gender');
-  loadAndEmbed('graph/07_activity.json',       'vis-activity');
-  loadAndEmbed('graph/08_body_part.json',      'vis-body');
-  loadAndEmbed('graph/09_month_radial.json',   'vis-month');
-  loadAndEmbed('graph/10_timeofday.json',      'vis-timeofday');
-  loadAndEmbed('graph/11_timeline.json',       'vis-timeline');
-  loadAndEmbed('graph/12_fatality_trend.json', 'vis-fatality-trend');
-  loadAndEmbed('graph/13_heatmap.json',        'vis-heatmap');
-  loadAndEmbed('graph/14_treemap.json',        'vis-treemap');
+  loadAndEmbed('vega_specs/01_choropleth.json',    'vis-map');
+  loadAndEmbed('vega_specs/02_dotmap.json',         'vis-dotmap');
+  loadAndEmbed('vega_specs/03_state_bar.json',      'vis-state-bar');
+  loadAndEmbed('vega_specs/04_species.json',        'vis-species');
+  loadAndEmbed('vega_specs/05_provoked.json',       'vis-provoked');
+  loadAndEmbed('vega_specs/06_gender.json',         'vis-gender');
+  loadAndEmbed('vega_specs/07_activity.json',       'vis-activity');
+  loadAndEmbed('vega_specs/08_body_part.json',      'vis-body');
+  loadAndEmbed('vega_specs/09_month_radial.json',   'vis-month');
+  loadAndEmbed('vega_specs/10_timeofday.json',      'vis-timeofday');
+  loadAndEmbed('vega_specs/11_timeline.json',       'vis-timeline');
+  loadAndEmbed('vega_specs/12_fatality_trend.json', 'vis-fatality-trend');
+  loadAndEmbed('vega_specs/13_heatmap.json',        'vis-heatmap');
+  loadAndEmbed('vega_specs/14_species_fatality.json',        'vis-treemap');
 
   /* ---- Reading progress bar ---- */
   window.addEventListener('scroll', () => {
