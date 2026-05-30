@@ -1,0 +1,164 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Which Shark is Truly Most Deadly? Fatality Rate by Species",
+  "width": "container",
+  "height": 320,
+  "config": {
+    "background": "transparent",
+    "font": "DM Sans",
+    "title": {
+      "color": "#e8f4f8",
+      "fontSize": 14,
+      "fontWeight": 600,
+      "font": "Playfair Display"
+    },
+    "axis": {
+      "labelColor": "rgba(232,244,248,0.5)",
+      "tickColor": "transparent",
+      "gridColor": "rgba(33,168,184,0.13)",
+      "domainColor": "rgba(33,168,184,0.13)",
+      "titleColor": "rgba(232,244,248,0.5)",
+      "titleFontSize": 11
+    },
+    "legend": {
+      "labelColor": "rgba(232,244,248,0.5)",
+      "titleColor": "rgba(232,244,248,0.5)",
+      "labelFontSize": 11
+    },
+    "view": {
+      "stroke": "transparent"
+    }
+  },
+  "data": {
+    "url": "data/shark_attacks.csv"
+  },
+  "transform": [
+    {
+      "filter": "datum.injury == 'Fatal' || datum.injury == 'Non-Fatal'"
+    },
+    {
+      "filter": "datum.species != '' && datum.species != 'Other'"
+    },
+    {
+      "calculate": "datum.injury == 'Fatal' ? 1 : 0",
+      "as": "is_fatal"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "count",
+          "as": "total"
+        },
+        {
+          "op": "sum",
+          "field": "is_fatal",
+          "as": "fatal_count"
+        }
+      ],
+      "groupby": [
+        "species"
+      ]
+    },
+    {
+      "calculate": "datum.fatal_count / datum.total * 100",
+      "as": "fatality_rate"
+    },
+    {
+      "calculate": "datum.total - datum.fatal_count",
+      "as": "non_fatal_count"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "cornerRadiusTopRight": 4,
+        "cornerRadiusBottomRight": 4,
+        "color": "#e05c4a",
+        "opacity": 0.85
+      },
+      "encoding": {
+        "y": {
+          "field": "species",
+          "type": "nominal",
+          "title": null,
+          "sort": {
+            "field": "fatality_rate",
+            "order": "descending"
+          }
+        },
+        "x": {
+          "field": "fatality_rate",
+          "type": "quantitative",
+          "title": "Fatality Rate (%)",
+          "scale": {
+            "domain": [
+              0,
+              55
+            ]
+          },
+          "axis": {
+            "format": ".0f"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "species",
+            "type": "nominal",
+            "title": "Species"
+          },
+          {
+            "field": "total",
+            "type": "quantitative",
+            "title": "Total Attacks"
+          },
+          {
+            "field": "fatal_count",
+            "type": "quantitative",
+            "title": "Fatal"
+          },
+          {
+            "field": "non_fatal_count",
+            "type": "quantitative",
+            "title": "Non-Fatal"
+          },
+          {
+            "field": "fatality_rate",
+            "type": "quantitative",
+            "title": "Fatality Rate (%)",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 6,
+        "color": "#e8f4f8",
+        "fontSize": 11,
+        "fontWeight": "600"
+      },
+      "encoding": {
+        "y": {
+          "field": "species",
+          "type": "nominal",
+          "sort": {
+            "field": "fatality_rate",
+            "order": "descending"
+          }
+        },
+        "x": {
+          "field": "fatality_rate",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "fatality_rate",
+          "type": "quantitative",
+          "format": ".1f"
+        }
+      }
+    }
+  ]
+}
