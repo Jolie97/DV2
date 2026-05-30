@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Total Shark Attacks by State (1791\u20132025)",
+  "title": "Shark Attacks per 100,000 Population by State",
   "width": "container",
   "height": 460,
   "config": {
@@ -46,7 +46,9 @@
         "key": "id",
         "fields": [
           "state",
-          "attacks"
+          "attacks",
+          "population",
+          "attacks_per_100k"
         ]
       }
     }
@@ -61,14 +63,15 @@
   },
   "encoding": {
     "color": {
-      "field": "attacks",
+      "field": "attacks_per_100k",
       "type": "quantitative",
-      "title": "Total Attacks",
+      "title": "Attacks per 100k",
       "scale": {
         "scheme": "tealblues"
       },
       "legend": {
-        "orient": "bottom-right"
+        "orient": "bottom-right",
+        "format": ".1f"
       }
     },
     "tooltip": [
@@ -81,6 +84,18 @@
         "field": "attacks",
         "type": "quantitative",
         "title": "Total Attacks"
+      },
+      {
+        "field": "population",
+        "type": "quantitative",
+        "title": "Population",
+        "format": ","
+      },
+      {
+        "field": "attacks_per_100k",
+        "type": "quantitative",
+        "title": "Per 100k Pop.",
+        "format": ".2f"
       }
     ]
   }
