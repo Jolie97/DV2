@@ -7,6 +7,8 @@
 :root {
   --bg:         #f0f7fc;
   --bg-section: #ffffff;
+  --text:       #0b1a24;
+  --muted:      #3a5466;
   --baby-blue:  #daeef8;
   --mid-blue:   #b8ddef;
   --ocean:      #1a6a8a;
@@ -16,8 +18,6 @@
   --danger:     #d63b2a;
   --warning:    #e67e22;
   --safe:       #1e9c5a;
-  --text:       #1a2e3a;
-  --muted:      #4a6a7a;
   --border:     #b8ddef;
   --card-bg:    #1a4a6b;
   --shadow:     rgba(26,106,138,0.10);
